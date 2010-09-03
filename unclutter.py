@@ -77,7 +77,6 @@ class Directory(object):
         self.new_directory = new_directory
         print "%s  was moved to %s" %(self.source_file, self.new_directory)
         
-        
 directory = Directory()
 for dir in os.listdir(sys.argv[1]):
     try:
