@@ -1,8 +1,9 @@
 #!/usr/bin/python
+
 # -----------------------------------------------------------------------------
 # File:   unclutter.py
 # Author: Taurus Olson
-# Description: "Everything in ist right place..."
+# Description: "Everything in its right place..."
 #               Move the files to a directory 'file_ext' depending on their
 #               extensions.
 #               This script is inspired from:
@@ -14,23 +15,23 @@
 import os, glob, shutil, sys
 
 if len(sys.argv) < 2:
-    print "Usage:\n%s [DIR]" % sys.argv[0]
+    print "Usage:\n%s SRC_DIR [DEST_DIR]" % sys.argv[0]
     sys.exit(0)
 
 def get_extensions(dir):
     """docstring for get_extensions"""
 
-    if len(sys.argv) < 2:
-        print "Usage:\n%s [DIR]" % sys.argv[0]
-        sys.exit(0)
+    # if len(sys.argv) < 2:
+    #     print "Usage:\n%s SRC_DIR [DEST_DIR]" % sys.argv[0]
+    #     sys.exit(0)
 
-    dir = sys.argv[1]
+    # dir = sys.argv[1]
 
     files = os.listdir(dir)
     extensions = []
-    for file in files:
-        if os.path.isfile(file):
-            base, ext = os.path.splitext(file)
+    for f in files:
+        if os.path.isfile(f):
+            base, ext = os.path.splitext(f)
             if ext != "":
                 extensions.append(ext)
 
@@ -51,17 +52,17 @@ class Directory(object):
         """Unclutter the dir"""
 
         self.path = path
-        this_file = "file_manip.py"
-        file_ext = get_extensions(self.path)
+        this_file = __file__
+        extensions = get_extensions(self.path)
 
-        for file in file_ext:
-            dir_base_name = "file_" + file.strip('.')
-            filenames = glob.glob(( '*' + file))
+        for extension in extensions:
+            ext_dir = "file_" + extension.strip('.')
+            filenames     = glob.glob(( '*' + extension))
 
             while filenames:
-                new_dir = dir_base_name
+                new_dir = ext_dir
                 if not os.path.exists(new_dir):
-                    print "-------%s files-------" % file
+                    print "-------%s files-------" % extension
                     os.mkdir(new_dir)
 
                 for n in range(len(filenames)):
